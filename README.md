@@ -1,23 +1,30 @@
-# Trash Rush: Advanced Version
+# Trash Rush: Game-Like Edition
 
-A more advanced Roblox prototype where players collect trash, deposit it for coins, level up, buy upgrades, and complete objectives.
+A more polished Roblox prototype where players pick up trash, deposit it for cash, level up, buy upgrades, and complete objectives in a city-style environment.
 
 ## Features
-- Randomized trash spawning around a large open map
-- Pickup-based collection and deposit-based rewards
-- XP and level progression
-- Coins and upgrade shop
-- Leaderstats for level, XP, trash, and coins
-- Simulated objective tracking and progression loop
-- Built as a stronger foundation for a realistic playable prototype
+- Open-world cleanup gameplay loop
+- Trash spawns across multiple zones
+- Deposit bins for earning coins and XP
+- Upgrade shop with progression values
+- Level system and objective tracking
+- HUD with live progress, timer, and status
+- Leaderboard-style stats through Roblox leaderstats
+- Cleaner visual presentation for a more game-like feel
 
-## New Advanced Gameplay Loop
-1. Spawn into the map
-2. Collect trash scattered across the world
-3. Carry collected trash to the deposit bins
-4. Earn coins and XP from deposit rewards
-5. Spend coins to buy upgrades for better pickups and rewards
-6. Use the level system to progress through an expanded loop
+## Gameplay Loop
+1. Spawn into the city map
+2. Walk around and collect trash scattered across the area
+3. Carry trash to a deposit bin
+4. Earn coins, XP, and objective progress
+5. Spend coins on upgraded pickups and rewards
+6. Increase your level and keep cleaning to grow your score
+
+## Controls
+- Move with the standard Roblox controls
+- Press U to open the upgrade shop
+- Walk into trash to collect it
+- Touch a deposit bin to turn carried trash into rewards
 
 ## Project Structure
 
@@ -28,10 +35,10 @@ roblox-trash-game/
 │   ├── server/
 │   │   ├── GameManager.lua
 │   │   ├── LevelingService.lua
+│   │   ├── QuestService.lua
+│   │   ├── SaveService.lua
 │   │   ├── TrashService.lua
 │   │   ├── UpgradeService.lua
-│   │   ├── SaveService.lua
-│   │   ├── QuestService.lua
 │   │   └── main.lua
 │   ├── client/
 │   │   ├── HUD.lua
@@ -48,25 +55,21 @@ roblox-trash-game/
 
 ## How to Use in Roblox Studio
 1. Open Roblox Studio and create a new place
-2. Put `src/server/*.lua` into `ServerScriptService`
-3. Put `src/client/*.lua` into `StarterPlayer > StarterPlayerScripts`
-4. Optionally create a `ReplicatedStorage` folder and move any RemoteEvent setup there if you customize the project
-5. Make sure there is a flat baseplate or map area for the spawn points
-6. Press Play to test the advanced prototype
+2. Put all scripts from `src/server` into `ServerScriptService`
+3. Put all scripts from `src/client` into `StarterPlayer > StarterPlayerScripts`
+4. Create a Roblox map with a large baseplate or open world
+5. Press Play
+6. Press U to open the upgrade shop
 
-## Advanced Mechanics
-- Trash spawns in waves across the world
-- Trash has different values and colors
-- Deposit bins convert carried trash into coins and XP
-- Each upgrade affects gameplay balance and progression pacing
-- Leaderstats make the game feel more complete and rewarding
+## What Makes It More Game-Like
+- The map is designed around a more sandbox-style environment
+- There are objective milestones and a repeated reward cycle
+- The HUD feels like a more complete game interface
+- Upgrades create meaningful progression instead of simple static stats
+- The game loop feels more like a live challenge instead of just collecting floating objects
 
-## Recommended Next Steps
-- Add a real map with obstacles and city props
-- Add sound effects and particle FX for pickups and deposits
-- Add a save/load system using Roblox DataStore
-- Add cosmetic unlocks and achievement progression
-- Add a leaderboard and daily challenge panel
+## Notes
+This version is still a prototype, but it is much closer to a real Roblox game loop than the earlier versions.
 
 ## License
 Open for experimentation and learning.

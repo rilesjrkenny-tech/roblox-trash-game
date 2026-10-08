@@ -3,17 +3,19 @@ local Workspace = game:GetService("Workspace")
 
 local Config = require(script.Parent.Parent:WaitForChild("Shared"):WaitForChild("Config"))
 local LevelingService = require(script.Parent:WaitForChild("LevelingService"))
+local QuestService = require(script.Parent:WaitForChild("QuestService"))
 
 local TrashService = {}
 
 local activeTrash = {}
 
-local function randVec3(minRange, maxRange)
-    return Vector3.new(
-        math.random(minRange, maxRange),
-        3,
-        math.random(minRange, maxRange)
-    )
+local function addGlow(part, color)
+    local glow = Instance.new("SelectionBox")
+    glow.Adornee = part
+    glow.Color3 = color
+    glow.LineThickness = 0.05
+    glow.Transparency = 0.6
+    glow.Parent = part
 end
 
 local function createTrashPart(position)
@@ -32,11 +34,7 @@ local function createTrashPart(position)
 
     part:SetAttribute("TrashValue", trashType.Value)
     part:SetAttribute("TrashName", trashType.Name)
-
-    local highlight = Instance.new("Highlight")
-    highlight.FillTransparency = 0.7
-    highlight.OutlineColor = trashType.Color
-    highlight.Parent = part
+    addGlow(part, trashType.Color)
 
     local touchedConnection
     touchedConnection = part.Touched:Connect(function(hit)
@@ -57,10 +55,11 @@ local function createTrashPart(position)
 
         local pickupBoost = player:GetAttribute("PickupBoostLevel") or 0
         local baseValue = part:GetAttribute("TrashValue") or 10
-        local xpGain = baseValue + (pickupBoost * 5)
+        local xpGain = baseValue + (pickupBoost * 7)
 
         LevelingService.AddExperience(player, xpGain)
         LevelingService.AddTrash(player, 1)
+        QuestService.RegisterPickup(player)
 
         local currentCarry = player:GetAttribute("TrashCarried") or 0
         player:SetAttribute("TrashCarried", currentCarry + 1)
@@ -100,7 +99,7 @@ local function createDepositBin(position)
 
     local label = Instance.new("BillboardGui")
     label.Name = "BinLabel"
-    label.Size = UDim2.new(0, 120, 0, 50)
+    label.Size = UDim2.new(0, 180, 0, 60)
     label.StudsOffset = Vector3.new(0, 4, 0)
     label.AlwaysOnTop = true
     label.Parent = bin
@@ -137,7 +136,7 @@ local function createDepositBin(position)
         end
 
         local binBonus = player:GetAttribute("BinBonusLevel") or 0
-        local reward = carryAmount * (Config.DepositBonus + binBonus * 6)
+        local reward = carryAmount * (Config.DepositBonus + binBonus * 7)
 
         LevelingService.AddCoins(player, reward)
         LevelingService.AddExperience(player, reward)
@@ -149,13 +148,6 @@ local function createDepositBin(position)
 end
 
 function TrashService.Start()
-    local spawnFolder = Workspace:FindFirstChild("TrashSpawnFolder")
-    if not spawnFolder then
-        spawnFolder = Instance.new("Folder")
-        spawnFolder.Name = "TrashSpawnFolder"
-        spawnFolder.Parent = Workspace
-    end
-
     local depositFolder = Workspace:FindFirstChild("TrashDepositFolder")
     if not depositFolder then
         depositFolder = Instance.new("Folder")
@@ -165,9 +157,11 @@ function TrashService.Start()
 
     if #depositFolder:GetChildren() == 0 then
         local depositPositions = {
-            Vector3.new(-25, 3, -25),
-            Vector3.new(25, 3, -25),
-            Vector3.new(0, 3, 30),
+            Vector3.new(-30, 3, -30),
+            Vector3.new(30, 3, -30),
+            Vector3.new(0, 3, 32),
+            Vector3.new(-28, 3, 28),
+            Vector3.new(28, 3, 28),
         }
 
         for _, pos in ipairs(depositPositions) do
@@ -185,7 +179,8 @@ function TrashService.Start()
             if currentTrashCount < Config.MaxTrashAlive then
                 local spawnX = math.random(-Config.WorldSize, Config.WorldSize)
                 local spawnZ = math.random(-Config.WorldSize, Config.WorldSize)
-                createTrashPart(Vector3.new(spawnX, 3, spawnZ))
+                local position = Vector3.new(spawnX, 3, spawnZ)
+                createTrashPart(position)
             end
 
             task.wait(Config.SpawnInterval)

@@ -1,20 +1,23 @@
-# Trash Rush
+# Trash Rush: Advanced Version
 
-A simple Roblox game prototype where players pick up trash around the map to earn experience and level up.
+A more advanced Roblox prototype where players collect trash, deposit it for coins, level up, buy upgrades, and complete objectives.
 
 ## Features
-- Trash items spawn randomly across the map
-- Picking up trash gives XP and increases your trash count
-- Each level unlocks stronger progression and more satisfying gameplay
-- Simple HUD with level, XP bar, and collected trash count
-- Easy to expand into a larger game with upgrades, shops, or team objectives
+- Randomized trash spawning around a large open map
+- Pickup-based collection and deposit-based rewards
+- XP and level progression
+- Coins and upgrade shop
+- Leaderstats for level, XP, trash, and coins
+- Simulated objective tracking and progression loop
+- Built as a stronger foundation for a realistic playable prototype
 
-## Gameplay Loop
-1. Spawn into the main map
-2. Walk around and collect floating or ground trash
-3. Each trash pickup grants a small XP boost
-4. Reach leveling thresholds to gain a new level
-5. Use level gains as a progression loop or to unlock rewards later
+## New Advanced Gameplay Loop
+1. Spawn into the map
+2. Collect trash scattered across the world
+3. Carry collected trash to the deposit bins
+4. Earn coins and XP from deposit rewards
+5. Spend coins to buy upgrades for better pickups and rewards
+6. Use the level system to progress through an expanded loop
 
 ## Project Structure
 
@@ -23,39 +26,47 @@ roblox-trash-game/
 ├── README.md
 ├── src/
 │   ├── server/
+│   │   ├── GameManager.lua
 │   │   ├── LevelingService.lua
 │   │   ├── TrashService.lua
+│   │   ├── UpgradeService.lua
+│   │   ├── SaveService.lua
+│   │   ├── QuestService.lua
 │   │   └── main.lua
 │   ├── client/
 │   │   ├── HUD.lua
+│   │   ├── ShopGui.lua
 │   │   └── main.lua
 │   └── shared/
 │       ├── Config.lua
 │       └── Constants.lua
 ├── docs/
+│   ├── ADVANCED_GAMEPLAY.md
 │   └── GAMEPLAY.md
 └── .gitignore
 ```
 
 ## How to Use in Roblox Studio
 1. Open Roblox Studio and create a new place
-2. Copy the scripts from `src/server/` into `ServerScriptService`
-3. Copy the scripts from `src/client/` into `StarterPlayer > StarterPlayerScripts`
-4. Create a folder structure named `TrashGame` if you want to mirror the module layout
-5. Press Play to test the prototype
+2. Put `src/server/*.lua` into `ServerScriptService`
+3. Put `src/client/*.lua` into `StarterPlayer > StarterPlayerScripts`
+4. Optionally create a `ReplicatedStorage` folder and move any RemoteEvent setup there if you customize the project
+5. Make sure there is a flat baseplate or map area for the spawn points
+6. Press Play to test the advanced prototype
 
-## Notes
-This is a simple single-place prototype designed to be easy to build on. It focuses on the core loop:
-- collect trash
-- earn XP
-- level up
+## Advanced Mechanics
+- Trash spawns in waves across the world
+- Trash has different values and colors
+- Deposit bins convert carried trash into coins and XP
+- Each upgrade affects gameplay balance and progression pacing
+- Leaderstats make the game feel more complete and rewarding
 
-This foundation is ready to be expanded with:
-- a shop system
-- better map design
-- collectible objectives
-- leaderboard/tracker
-- more visual polish
+## Recommended Next Steps
+- Add a real map with obstacles and city props
+- Add sound effects and particle FX for pickups and deposits
+- Add a save/load system using Roblox DataStore
+- Add cosmetic unlocks and achievement progression
+- Add a leaderboard and daily challenge panel
 
 ## License
-This project is open for learning and experimentation.
+Open for experimentation and learning.
